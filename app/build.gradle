@@ -64,8 +64,6 @@ dependencies {
 
     // retrofit & okhttp
     implementation "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.retrofitVersion"
     implementation "com.squareup.okhttp3:okhttp:$rootProject.ext.okHttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.okHttpVersion"
 
