@@ -19,9 +19,3 @@ sealed class BaseResult<out R> {
         }
     }
 }
-
-/**
- * `true` if [BaseResult] is of type [Success] & holds non-null [Success.data].
- */
-val BaseResult<*>.succeeded
-    get() = this is BaseResult.Success && data != null

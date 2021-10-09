@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.faranjit.hilt.mvvm.features.home.presentation.adapter.popular.PopularItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_xxsmall"
+        android:elevation="8dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgPopularItem"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            app:imageRadius="@{Integer.valueOf(4)}"
+            app:layout_constraintDimensionRatio="7:4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:url="@{item.imageUrl}"
+            tools:src="@drawable/wedding" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtPopularItem"
+            style="@style/BoldNormalTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_xxsmall"
+            android:maxLines="2"
+            android:text="@{item.name}"
+            app:layout_constraintEnd_toEndOf="@id/imgPopularItem"
+            app:layout_constraintStart_toStartOf="@id/imgPopularItem"
+            app:layout_constraintTop_toBottomOf="@id/imgPopularItem"
+            tools:text="Popular Item" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

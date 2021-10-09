@@ -9,8 +9,8 @@ import com.faranjit.hilt.mvvm.di.GlideApp
 /**
  * Created by Bulent Turkmen on 9.10.2021.
  */
-@BindingAdapter(value = ["url", "radius"], requireAll = false)
-fun setImageUrl(view: AppCompatImageView, url: String?, radius: Int?) {
+@BindingAdapter(value = ["url", "imageRadius"], requireAll = false)
+fun setImageUrl(view: AppCompatImageView, url: String?, radius: Int? = null) {
     if (url.isNullOrEmpty()) {
         return
     } else {
