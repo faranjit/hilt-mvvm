@@ -7,6 +7,8 @@ import com.faranjit.hilt.mvvm.base.BaseResult
 import com.faranjit.hilt.mvvm.base.BaseViewModel
 import com.faranjit.hilt.mvvm.features.home.data.response.FeedResponse
 import com.faranjit.hilt.mvvm.features.home.domain.interactor.GetHomeFeed
+import com.faranjit.hilt.mvvm.features.home.presentation.adapter.all.AllServiceItem
+import com.faranjit.hilt.mvvm.features.home.presentation.adapter.all.mapToAllServiceItems
 import com.faranjit.hilt.mvvm.features.home.presentation.adapter.popular.PopularItem
 import com.faranjit.hilt.mvvm.features.home.presentation.adapter.popular.mapToPopularItems
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,6 +23,10 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getHomeFeed: GetHomeFeed
 ) : BaseViewModel() {
+
+    private val allServices = MutableLiveData<List<AllServiceItem>>()
+    val allServicesLiveData: LiveData<List<AllServiceItem>>
+        get() = allServices
 
     private val popularItems = MutableLiveData<List<PopularItem>>()
     val popularItemsLiveData: LiveData<List<PopularItem>>
@@ -39,6 +45,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun parseFeedResponse(feed: FeedResponse) {
+        allServices.value = feed.allServices.mapToAllServiceItems()
         popularItems.value = feed.popularServices.mapToPopularItems()
     }
 }

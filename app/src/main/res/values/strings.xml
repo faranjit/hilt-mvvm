@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">HiltMvvm</string>
     <string name="popular_these_days">Popular These Days</string>
+    <string name="all_services">All services</string>
 </resources>
