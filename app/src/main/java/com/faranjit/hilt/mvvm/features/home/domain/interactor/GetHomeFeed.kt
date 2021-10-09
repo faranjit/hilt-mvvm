@@ -13,7 +13,6 @@ class GetHomeFeed @Inject constructor(
     private val homeRepository: HomeRepository
 ) : BaseUseCase<FeedResponse, Unit>() {
 
-    override suspend fun getData(params: Unit?): BaseResult<FeedResponse> {
-        return homeRepository.getHomeFeed()
-    }
+    override suspend fun getData(params: Unit?): BaseResult<FeedResponse> =
+        homeRepository.getHomeFeed()
 }

@@ -9,5 +9,6 @@ import retrofit2.http.GET
 interface HomeApi {
 
     @GET("home")
+    @Throws(Exception::class)
     suspend fun getHomeFeed(): FeedResponse
 }
