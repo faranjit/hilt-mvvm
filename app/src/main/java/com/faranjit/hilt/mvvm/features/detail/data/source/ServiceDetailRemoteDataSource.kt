@@ -5,6 +5,7 @@ import com.faranjit.hilt.mvvm.base.map
 import com.faranjit.hilt.mvvm.features.detail.domain.ServiceDetailApi
 import com.faranjit.hilt.mvvm.features.detail.domain.interactor.ServiceDetailResponseMapper
 import com.faranjit.hilt.mvvm.features.detail.domain.model.ServiceDetailModel
+import retrofit2.HttpException
 import javax.inject.Inject
 
 /**
@@ -22,7 +23,12 @@ class ServiceDetailRemoteDataSource @Inject constructor(
                 mapper.map(it)
             }
         } catch (ex: Exception) {
-            BaseResult.Error(ex)
+            when (ex) {
+                is HttpException -> if (ex.code() == 404) {
+                    BaseResult.Error(Exception("The service that you requested could not found!"))
+                } else BaseResult.Error(ex)
+                else -> BaseResult.Error(ex)
+            }
         }
     }
 }

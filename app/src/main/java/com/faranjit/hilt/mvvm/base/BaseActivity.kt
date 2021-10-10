@@ -1,10 +1,12 @@
 package com.faranjit.hilt.mvvm.base
 
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDialog
 import androidx.databinding.ViewDataBinding
 import com.faranjit.hilt.mvvm.R
+import com.faranjit.hilt.mvvm.dialog.DialogModel
 
 /**
  * Created by Bulent Turkmen on 9.10.2021.
@@ -45,5 +47,17 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewDataBinding> : AppCompa
 
     protected fun hideLoading() {
         progressDialog?.dismiss()
+    }
+
+    fun showDialog(dialogModel: DialogModel) {
+        dialogModel.run {
+            AlertDialog.Builder(this@BaseActivity)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(positiveButton?.text) { dialog, _ ->
+                    positiveButton?.task?.invoke()
+                    dialog.dismiss()
+                }.create()
+        }.show()
     }
 }

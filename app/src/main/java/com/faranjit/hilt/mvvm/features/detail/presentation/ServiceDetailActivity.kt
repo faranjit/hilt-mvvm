@@ -7,6 +7,8 @@ import androidx.activity.viewModels
 import com.faranjit.hilt.mvvm.base.BaseActivity
 import com.faranjit.hilt.mvvm.base.viewBinding
 import com.faranjit.hilt.mvvm.databinding.ActivityServiceDetailBinding
+import com.faranjit.hilt.mvvm.dialog.dialog
+import com.faranjit.hilt.mvvm.features.detail.presentation.adapter.DetailAdapter
 import com.faranjit.hilt.mvvm.features.home.domain.model.ServiceModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,14 +32,20 @@ class ServiceDetailActivity : BaseActivity<ServiceDetailViewModel, ActivityServi
 
     private val binding by viewBinding(ActivityServiceDetailBinding::inflate)
 
+    private val detailAdapter = DetailAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setSupportActionBar(binding.toolbar)
-        binding.toolbar.setNavigationOnClickListener {
-            finish()
+        binding.run {
+            setSupportActionBar(toolbar)
+            toolbar.setNavigationOnClickListener {
+                finish()
+            }
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+            recyclerDetails.adapter = detailAdapter
         }
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         if (intent.hasExtra(KEY_SERVICE)) {
             val serviceDetail = intent.getParcelableExtra<ServiceModel>(KEY_SERVICE)
@@ -46,11 +54,32 @@ class ServiceDetailActivity : BaseActivity<ServiceDetailViewModel, ActivityServi
                 title = it.name
             }
         }
+
+        observe()
     }
 
     override fun provideViewModel() = viewModels<ServiceDetailViewModel>().value
 
     override fun bindViewModel() {
         binding.viewModel = viewModel
+    }
+
+    private fun observe() {
+        viewModel.detailItemsLiveData.observe(this) {
+            detailAdapter.submitList(it)
+        }
+
+        viewModel.errorLiveData.observe(this) {
+            showDialog(
+                dialog {
+                    title("An error occurred!")
+                    message(it ?: "Please, try again later!")
+                    button("Ok")
+                    {
+                        finish()
+                    }
+                }
+            )
+        }
     }
 }
