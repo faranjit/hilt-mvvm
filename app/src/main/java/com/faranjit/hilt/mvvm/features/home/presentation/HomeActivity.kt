@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import com.faranjit.hilt.mvvm.base.BaseActivity
 import com.faranjit.hilt.mvvm.base.viewBinding
 import com.faranjit.hilt.mvvm.databinding.ActivityHomeBinding
+import com.faranjit.hilt.mvvm.features.home.presentation.adapter.all.AllServicesAdapter
 import com.faranjit.hilt.mvvm.features.home.presentation.adapter.popular.PopularAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -18,11 +19,13 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
     private val binding by viewBinding(ActivityHomeBinding::inflate)
 
     private val popularAdapter = PopularAdapter()
+    private val allServicesAdapter = AllServicesAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding.run {
+            recyclerAllServices.adapter = allServicesAdapter
             recyclerPopular.adapter = popularAdapter
         }
 
@@ -36,6 +39,10 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
     }
 
     private fun observe() {
+        viewModel.allServicesLiveData.observe(this) {
+            allServicesAdapter.submitList(it)
+        }
+
         viewModel.popularItemsLiveData.observe(this) {
             popularAdapter.submitList(it)
         }

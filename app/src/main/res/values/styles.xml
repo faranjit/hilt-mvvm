@@ -7,6 +7,10 @@
         <item name="android:textSize">@dimen/text_size_normal</item>
     </style>
 
+    <style name="BoldSmallTextStyle" parent="BoldNormalTextStyle">
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
     <style name="BoldBigTextStyle" parent="BoldNormalTextStyle">
         <item name="android:textSize">@dimen/text_size_bigger</item>
     </style>

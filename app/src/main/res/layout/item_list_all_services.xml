@@ -8,39 +8,39 @@
 
         <variable
             name="item"
-            type="com.faranjit.hilt.mvvm.features.home.presentation.adapter.popular.PopularItem" />
+            type="com.faranjit.hilt.mvvm.features.home.presentation.adapter.all.AllServiceItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_xxsmall"
-        android:elevation="8dp">
+        android:background="@drawable/background_rounded_whitish"
+        android:padding="@dimen/margin_small">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imgPopularItem"
+            android:id="@+id/imgAllItem"
             android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:scaleType="fitXY"
-            app:imageRadius="@{Integer.valueOf(4)}"
-            app:layout_constraintDimensionRatio="7:4"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:src="@{item.resId}"
+            android:tint="@color/green"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:url="@{item.imageUrl}"
-            tools:src="@drawable/wedding" />
+            tools:src="@android:drawable/ic_dialog_map" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtPopularItem"
+            android:id="@+id/txtAllItemName"
             style="@style/BoldSmallTextStyle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_xxsmall"
             android:maxLines="2"
             android:text="@{item.name}"
-            app:layout_constraintEnd_toEndOf="@id/imgPopularItem"
-            app:layout_constraintStart_toStartOf="@id/imgPopularItem"
-            app:layout_constraintTop_toBottomOf="@id/imgPopularItem"
-            tools:text="Popular Item" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgAllItem"
+            tools:text="Cleaning" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
