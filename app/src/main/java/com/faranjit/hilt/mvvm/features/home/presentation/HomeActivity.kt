@@ -1,5 +1,7 @@
 package com.faranjit.hilt.mvvm.features.home.presentation
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.faranjit.hilt.mvvm.base.BaseActivity
@@ -64,7 +66,9 @@ class HomeActivity :
     }
 
     override fun onPostClick(item: PostItem) {
-        TODO("Not yet implemented")
+        val uri = Uri.parse(item.link)
+        val browserIntent = Intent(Intent.ACTION_VIEW, uri)
+        startActivity(browserIntent)
     }
 
     private fun observe() {
