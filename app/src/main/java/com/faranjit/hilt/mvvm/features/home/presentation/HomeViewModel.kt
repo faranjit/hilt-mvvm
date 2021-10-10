@@ -5,8 +5,8 @@ import androidx.lifecycle.*
 import com.faranjit.hilt.mvvm.base.BaseResult
 import com.faranjit.hilt.mvvm.base.BaseViewModel
 import com.faranjit.hilt.mvvm.base.succeeded
-import com.faranjit.hilt.mvvm.features.home.data.response.FeedResponse
 import com.faranjit.hilt.mvvm.features.home.domain.interactor.GetHomeFeed
+import com.faranjit.hilt.mvvm.features.home.domain.model.FeedModel
 import com.faranjit.hilt.mvvm.features.home.presentation.adapter.all.AllServiceItem
 import com.faranjit.hilt.mvvm.features.home.presentation.adapter.all.mapToAllServiceItems
 import com.faranjit.hilt.mvvm.features.home.presentation.adapter.popular.PopularItem
@@ -45,8 +45,8 @@ class HomeViewModel @Inject constructor(
     val postItemsLiveData: LiveData<List<PostItem>>
         get() = postItems
 
-    private val feedResponse = MutableLiveData<FeedResponse>()
-    private val feedResponseLiveData: LiveData<FeedResponse> = feedResponse.switchMap {
+    private val feedResponse = MutableLiveData<FeedModel>()
+    private val feedResponseLiveData: LiveData<FeedModel> = feedResponse.switchMap {
         liveData(viewModelScope.coroutineContext) {
             parseFeedResponse(it)
             emit(it)
@@ -98,8 +98,8 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun parseFeedResponse(feed: FeedResponse) {
-        resultVisibilityObservable.set(true)
+    private fun parseFeedResponse(feed: FeedModel) {
+        feedResponse.value = feed
         allServices.value = feed.allServices.mapToAllServiceItems()
         popularItems.value = feed.popularServices.mapToPopularItems()
         postItems.value = feed.posts.mapToPostItems()

@@ -1,7 +1,7 @@
 package com.faranjit.hilt.mvvm.features.home.presentation.adapter.post
 
 import com.faranjit.hilt.mvvm.base.list.BaseListItem
-import com.faranjit.hilt.mvvm.features.home.data.response.Post
+import com.faranjit.hilt.mvvm.features.home.domain.model.PostModel
 
 /**
  * Created by Bulent Turkmen on 10.10.2021.
@@ -19,6 +19,6 @@ data class PostItem(
     override fun areContentsTheSame(newItem: PostItem) = this == newItem
 }
 
-fun List<Post>.mapToPostItems() = this.map {
+fun List<PostModel>.mapToPostItems() = this.map {
     PostItem(0, it.title, it.category, it.imageUrl, it.link)
 }
