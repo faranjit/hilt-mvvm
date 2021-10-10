@@ -18,4 +18,13 @@
     <style name="HeaderTextStyle" parent="BoldNormalTextStyle">
         <item name="android:textSize">@dimen/text_size_header</item>
     </style>
+
+    <style name="CollapsedToolbarTextStyle" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ExpandedToolbarTextStyle" parent="@android:style/TextAppearance.Large">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>

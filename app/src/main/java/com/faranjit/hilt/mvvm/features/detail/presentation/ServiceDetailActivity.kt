@@ -34,6 +34,10 @@ class ServiceDetailActivity : BaseActivity<ServiceDetailViewModel, ActivityServi
         super.onCreate(savedInstanceState)
 
         setSupportActionBar(binding.toolbar)
+        binding.toolbar.setNavigationOnClickListener {
+            finish()
+        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         if (intent.hasExtra(KEY_SERVICE)) {
             val serviceDetail = intent.getParcelableExtra<ServiceModel>(KEY_SERVICE)

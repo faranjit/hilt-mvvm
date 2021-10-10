@@ -27,7 +27,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
+                app:collapsedTitleTextAppearance="@style/CollapsedToolbarTextStyle"
                 app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleTextAppearance="@style/ExpandedToolbarTextStyle"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                 app:toolbarId="@+id/toolbar">
 
@@ -35,7 +37,7 @@
                     android:id="@+id/imgHeader"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:background="@color/very_light_gray"
+                    android:alpha="0.8"
                     android:scaleType="fitCenter"
                     app:url="@{viewModel.detailImage}"
                     tools:src="@drawable/header" />
@@ -45,6 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
+                    app:navigationIconTint="@color/white"
                     app:popupTheme="@style/AppTheme.PopupOverlay" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
