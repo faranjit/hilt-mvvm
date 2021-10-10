@@ -3,4 +3,6 @@
     <string name="popular_these_days">Popular These Days</string>
     <string name="all_services">All services</string>
     <string name="latests_from_the_blog">Latests from the blog</string>
+    <string name="home_title">Hizmet Piş\nağzıma düş</string>
+    <string name="empty_result_message">There is no result here!\nYou can try again by clicking here.</string>
 </resources>

@@ -1,10 +1,12 @@
 package com.faranjit.hilt.mvvm.features.home.presentation
 
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.faranjit.hilt.mvvm.base.BaseResult
 import com.faranjit.hilt.mvvm.base.BaseViewModel
+import com.faranjit.hilt.mvvm.base.succeeded
 import com.faranjit.hilt.mvvm.features.home.data.response.FeedResponse
 import com.faranjit.hilt.mvvm.features.home.domain.interactor.GetHomeFeed
 import com.faranjit.hilt.mvvm.features.home.presentation.adapter.all.AllServiceItem
@@ -38,13 +40,34 @@ class HomeViewModel @Inject constructor(
     val postItemsLiveData: LiveData<List<PostItem>>
         get() = postItems
 
+    val resultVisibilityObservable = ObservableBoolean(true)
+
     init {
+        getHomeFeedFlow(true)
+    }
+
+    /**
+     * Get home data from remote api as flow.
+     * It shows dummy error if showDummyError parameter set true.
+     *
+     * @param showDummyError shows an error message or shows the actual results
+     */
+    fun getHomeFeedFlow(showDummyError: Boolean = false) {
         viewModelScope.launch {
-            getHomeFeed.execute().collect {
-                when (it) {
-                    is BaseResult.Loading -> showLoading(it.showing)
-                    is BaseResult.Success -> parseFeedResponse(it.data)
-                    is BaseResult.Error -> TODO()
+            if (showDummyError) {
+                resultVisibilityObservable.set(false)
+            } else {
+                getHomeFeed.execute().collect {
+                    when (it) {
+                        is BaseResult.Loading -> showLoading(it.showing)
+                        is BaseResult.Success -> if (it.succeeded) {
+                            resultVisibilityObservable.set(true)
+                            parseFeedResponse(it.data)
+                        } else {
+                            resultVisibilityObservable.set(false)
+                        }
+                        is BaseResult.Error -> resultVisibilityObservable.set(false)
+                    }
                 }
             }
         }

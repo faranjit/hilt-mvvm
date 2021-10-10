@@ -30,9 +30,15 @@ class HomeActivity :
         super.onCreate(savedInstanceState)
 
         binding.run {
+            search.bringToFront()
+
             recyclerAllServices.adapter = allServicesAdapter
             recyclerPopular.adapter = popularAdapter
             recyclerPost.adapter = postsAdapter
+
+            txtEmpty.setOnClickListener {
+                viewModel?.getHomeFeedFlow(false)
+            }
         }
 
         observe()

@@ -14,4 +14,8 @@
     <style name="BoldBigTextStyle" parent="BoldNormalTextStyle">
         <item name="android:textSize">@dimen/text_size_bigger</item>
     </style>
+
+    <style name="HeaderTextStyle" parent="BoldNormalTextStyle">
+        <item name="android:textSize">@dimen/text_size_header</item>
+    </style>
 </resources>

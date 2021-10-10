@@ -12,4 +12,5 @@
     <dimen name="text_size_normal">16sp</dimen>
     <dimen name="text_size_big">18sp</dimen>
     <dimen name="text_size_bigger">20sp</dimen>
+    <dimen name="text_size_header">36sp</dimen>
 </resources>
