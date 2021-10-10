@@ -48,7 +48,7 @@ class HomeViewModelTest : BaseUnitTest() {
         viewModel.getHomeFeedFlow(true)
 
         // Then
-        assertFalse(viewModel.resultVisibilityObservable.get())
+        assertFalse(viewModel.resultVisibilityObservable.getOrAwaitValue())
     }
 
     @Test
@@ -59,6 +59,6 @@ class HomeViewModelTest : BaseUnitTest() {
         viewModel.getHomeFeedFlow(false)
 
         // Then
-        assertTrue(viewModel.resultVisibilityObservable.get())
+        assertTrue(viewModel.resultVisibilityObservable.getOrAwaitValue())
     }
 }

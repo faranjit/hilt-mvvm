@@ -7,7 +7,7 @@ import com.faranjit.hilt.mvvm.features.detail.domain.model.ServiceDetailModel
 /**
  * Created by Bulent Turkmen on 10.10.2021.
  */
-object ServiceDetailResponseMapper : BaseMapper<ServiceDetailResponse, ServiceDetailModel>() {
+object ServiceDetailResponseMapper : BaseMapper<ServiceDetailResponse, ServiceDetailModel> {
 
     override fun map(from: ServiceDetailResponse) =
         ServiceDetailModel(

@@ -15,6 +15,9 @@ class ServiceDetailRemoteDataSource @Inject constructor(
     private val detailApi: ServiceDetailApi,
     private val mapper: ServiceDetailResponseMapper
 ) {
+    companion object {
+        private const val ERROR_NOT_FOUND = 404
+    }
 
     suspend fun getServiceDetail(serviceId: Int): BaseResult<ServiceDetailModel> {
         return try {
@@ -24,7 +27,7 @@ class ServiceDetailRemoteDataSource @Inject constructor(
             }
         } catch (ex: Exception) {
             when (ex) {
-                is HttpException -> if (ex.code() == 404) {
+                is HttpException -> if (ex.code() == ERROR_NOT_FOUND) {
                     BaseResult.Error(Exception("The service that you requested could not found!"))
                 } else BaseResult.Error(ex)
                 else -> BaseResult.Error(ex)

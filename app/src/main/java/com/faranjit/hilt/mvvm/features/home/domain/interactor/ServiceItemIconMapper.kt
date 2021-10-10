@@ -7,6 +7,7 @@ import com.faranjit.hilt.mvvm.R
  */
 object ServiceItemIconMapper {
 
+    @Suppress("MagicNumber")
     private val images = mapOf(
         208 to R.drawable.ic_tadilat,
         191 to R.drawable.ic_temizlik,
