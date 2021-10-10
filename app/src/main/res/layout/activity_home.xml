@@ -26,7 +26,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:visibility="@{!viewModel.resultVisibilityObservable}"
-            tools:visibility="visible" />
+            tools:visibility="gone" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="0dp"
@@ -36,7 +36,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:visibility="@{viewModel.resultVisibilityObservable}"
             tools:context=".features.home.presentation.HomeActivity"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

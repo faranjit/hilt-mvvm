@@ -19,6 +19,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.random.Random
 
 /**
  * Created by Bulent Turkmen on 9.10.2021.
@@ -43,7 +44,7 @@ class HomeViewModel @Inject constructor(
     val resultVisibilityObservable = ObservableBoolean(true)
 
     init {
-        getHomeFeedFlow(true)
+        getHomeFeedFlow(Random(10).nextInt() < 5)
     }
 
     /**
