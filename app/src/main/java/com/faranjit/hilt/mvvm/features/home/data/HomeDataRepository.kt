@@ -1,7 +1,5 @@
 package com.faranjit.hilt.mvvm.features.home.data
 
-import com.faranjit.hilt.mvvm.base.BaseResult
-import com.faranjit.hilt.mvvm.features.home.data.response.FeedResponse
 import com.faranjit.hilt.mvvm.features.home.data.source.HomeRemoteDataSource
 import com.faranjit.hilt.mvvm.features.home.domain.HomeRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -17,7 +15,7 @@ class HomeDataRepository @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : HomeRepository {
 
-    override suspend fun getHomeFeed(): BaseResult<FeedResponse> =
+    override suspend fun getHomeFeed() =
         withContext(ioDispatcher) {
             remoteDataSource.getHomeFeed()
         }

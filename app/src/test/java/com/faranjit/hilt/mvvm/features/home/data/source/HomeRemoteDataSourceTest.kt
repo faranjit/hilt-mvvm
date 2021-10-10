@@ -5,11 +5,11 @@ import com.faranjit.hilt.mvvm.base.BaseResult
 import com.faranjit.hilt.mvvm.features.home.data.response.FeedResponse
 import com.faranjit.hilt.mvvm.features.home.data.response.Service
 import com.faranjit.hilt.mvvm.features.home.domain.HomeApi
+import com.faranjit.hilt.mvvm.features.home.domain.interactor.FeedResponseMapper
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.*
 
@@ -22,8 +22,12 @@ class HomeRemoteDataSourceTest : BaseUnitTest() {
     @Mock
     private lateinit var homeApi: HomeApi
 
-    @InjectMocks
     private lateinit var remoteDataSource: HomeRemoteDataSource
+
+    override fun setup() {
+        super.setup()
+        remoteDataSource = HomeRemoteDataSource(homeApi, FeedResponseMapper)
+    }
 
     @Test
     fun shouldGetHomeFeedReturnsSuccess() = runBlockingTest {

@@ -4,6 +4,7 @@ import com.faranjit.hilt.mvvm.features.home.data.HomeDataRepository
 import com.faranjit.hilt.mvvm.features.home.data.source.HomeRemoteDataSource
 import com.faranjit.hilt.mvvm.features.home.domain.HomeApi
 import com.faranjit.hilt.mvvm.features.home.domain.HomeRepository
+import com.faranjit.hilt.mvvm.features.home.domain.interactor.FeedResponseMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,12 +22,16 @@ import javax.inject.Singleton
 object HomeModule {
 
     @Provides
-    fun provideHomeRemoteDataSource(homeApi: HomeApi) = HomeRemoteDataSource(homeApi)
+    fun provideHomeRemoteDataSource(homeApi: HomeApi, mapper: FeedResponseMapper) =
+        HomeRemoteDataSource(homeApi, mapper)
 }
 
 @Module
 @InstallIn(SingletonComponent::class)
 object HomeRepositoryModule {
+
+    @Provides
+    fun provideFeedResponseMapper() = FeedResponseMapper
 
     @Singleton
     @Provides

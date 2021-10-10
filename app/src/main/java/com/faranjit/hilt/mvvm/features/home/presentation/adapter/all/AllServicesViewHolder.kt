@@ -13,10 +13,8 @@ class AllServicesViewHolder(
 
     override fun bind(item: AllServiceItem) {
         binding.item = item
-        if (item.id > 0) {
-            binding.root.setOnClickListener {
-                serviceItemClickListener.onServiceItemClick(item)
-            }
+        binding.root.setOnClickListener {
+            serviceItemClickListener.onServiceItemClick(item)
         }
     }
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.faranjit.hilt.mvvm.features.detail.presentation.adapter.DetailItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@{item.resId}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_icn_profesyonel_number_orange" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtDetail"
+            style="@style/MediumTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:text="@{item.text}"
+            app:layout_constraintBottom_toBottomOf="@id/imgDetail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgDetail"
+            app:layout_constraintTop_toTopOf="@id/imgDetail"
+            app:span="@{item.span}"
+            tools:text="1234 pros near you" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
