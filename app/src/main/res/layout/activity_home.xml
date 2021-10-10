@@ -80,6 +80,71 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/txtTitle" />
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/imgDiscount"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/margin_large"
+                    app:cardCornerRadius="12dp"
+                    app:layout_constraintDimensionRatio="5:3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imgHeader">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/discount" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/BoldBigTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_margin="@dimen/margin_medium"
+                            android:background="@color/white"
+                            android:gravity="center"
+                            android:padding="@dimen/margin_normal"
+                            android:text="-15%\nDiscount" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:background="@color/green"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/SmallTextStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/margin_medium"
+                                android:gravity="center"
+                                android:text="FIRST TIME NEWLY WEDS"
+                                android:textColor="@color/white" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/BoldNormalTextStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_medium"
+                                android:layout_marginEnd="@dimen/margin_medium"
+                                android:layout_marginBottom="@dimen/margin_medium"
+                                android:gravity="center"
+                                android:text="WEDDING PHOTOGRAPHERS FROM 540 TL"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                </androidx.cardview.widget.CardView>
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/txtAllServices"
                     style="@style/BoldBigTextStyle"
@@ -90,7 +155,7 @@
                     android:layout_marginEnd="@dimen/margin_normal"
                     android:text="@string/all_services"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imgHeader" />
+                    app:layout_constraintTop_toBottomOf="@id/imgDiscount" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerAllServices"
