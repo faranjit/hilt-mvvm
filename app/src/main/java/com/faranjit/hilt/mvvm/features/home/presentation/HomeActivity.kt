@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import com.faranjit.hilt.mvvm.base.BaseActivity
 import com.faranjit.hilt.mvvm.base.viewBinding
 import com.faranjit.hilt.mvvm.databinding.ActivityHomeBinding
+import com.faranjit.hilt.mvvm.features.detail.presentation.ServiceDetailActivity
 import com.faranjit.hilt.mvvm.features.home.presentation.adapter.all.AllServiceItem
 import com.faranjit.hilt.mvvm.features.home.presentation.adapter.all.AllServicesAdapter
 import com.faranjit.hilt.mvvm.features.home.presentation.adapter.all.ServiceItemClickListener
@@ -50,6 +51,7 @@ class HomeActivity :
     override fun provideViewModel() = viewModels<HomeViewModel>().value
 
     override fun bindViewModel() {
+        binding.lifecycleOwner = this
         binding.viewModel = viewModel
     }
 
@@ -76,6 +78,10 @@ class HomeActivity :
 
         viewModel.postItemsLiveData.observe(this) {
             postsAdapter.submitList(it)
+        }
+
+        viewModel.openDetailLiveData.observe(this) {
+            startActivity(ServiceDetailActivity.newIntent(this, it))
         }
     }
 }

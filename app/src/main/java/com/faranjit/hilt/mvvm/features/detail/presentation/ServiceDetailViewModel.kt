@@ -1,5 +1,6 @@
 package com.faranjit.hilt.mvvm.features.detail.presentation
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.faranjit.hilt.mvvm.base.BaseResult
@@ -22,6 +23,8 @@ class ServiceDetailViewModel @Inject constructor(
 
     private val detailResponse = MutableLiveData<ServiceDetailModel>()
 
+    val detailImage = ObservableField<String>()
+
     fun getServiceDetail(serviceId: Int) {
         viewModelScope.launch {
             getServiceDetail.execute(
@@ -38,6 +41,10 @@ class ServiceDetailViewModel @Inject constructor(
 
     private fun handleResponse(detailModel: ServiceDetailModel) {
         detailResponse.value = detailModel
+
+        detailModel.run {
+            detailImage.set(imageUrl)
+        }
     }
 
     private fun handleError(message: String?) {

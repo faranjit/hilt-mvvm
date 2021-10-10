@@ -1,5 +1,8 @@
 package com.faranjit.hilt.mvvm.features.home.domain.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  * Created by Bulent Turkmen on 10.10.2021.
  */
@@ -9,6 +12,7 @@ data class FeedModel(
     val posts: List<PostModel>
 )
 
+@Parcelize
 data class ServiceModel(
     val id: Int,
     val serviceId: Int,
@@ -16,7 +20,7 @@ data class ServiceModel(
     val longName: String? = null,
     val imageUrl: String? = null,
     val proCount: Int? = 0
-)
+) : Parcelable
 
 data class PostModel(
     val title: String,

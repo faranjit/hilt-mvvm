@@ -1,12 +1,12 @@
 package com.faranjit.hilt.mvvm.features.home.presentation
 
-import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.*
 import com.faranjit.hilt.mvvm.base.BaseResult
 import com.faranjit.hilt.mvvm.base.BaseViewModel
 import com.faranjit.hilt.mvvm.base.succeeded
 import com.faranjit.hilt.mvvm.features.home.domain.interactor.GetHomeFeed
 import com.faranjit.hilt.mvvm.features.home.domain.model.FeedModel
+import com.faranjit.hilt.mvvm.features.home.domain.model.ServiceModel
 import com.faranjit.hilt.mvvm.features.home.presentation.adapter.all.AllServiceItem
 import com.faranjit.hilt.mvvm.features.home.presentation.adapter.all.mapToAllServiceItems
 import com.faranjit.hilt.mvvm.features.home.presentation.adapter.popular.PopularItem
@@ -45,15 +45,21 @@ class HomeViewModel @Inject constructor(
     val postItemsLiveData: LiveData<List<PostItem>>
         get() = postItems
 
-    private val feedResponse = MutableLiveData<FeedModel>()
-    private val feedResponseLiveData: LiveData<FeedModel> = feedResponse.switchMap {
+    private val openDetail = MutableLiveData<ServiceModel>()
+    val openDetailLiveData: LiveData<ServiceModel>
+        get() = openDetail
+
+    private val feedResponse = MutableLiveData<FeedModel?>()
+    val resultVisibilityObservable = feedResponse.switchMap {
         liveData(viewModelScope.coroutineContext) {
-            parseFeedResponse(it)
-            emit(it)
+            it?.let {
+                parseFeedResponse(it)
+                emit(true)
+            } ?: run {
+                emit(false)
+            }
         }
     }
-
-    val resultVisibilityObservable = ObservableBoolean(true)
 
     init {
         getHomeFeedFlow(Random.nextInt(0..RANDOM_SEED) < RANDOM_THRESHOLD)
@@ -68,18 +74,17 @@ class HomeViewModel @Inject constructor(
     fun getHomeFeedFlow(showDummyError: Boolean = false) {
         viewModelScope.launch {
             if (showDummyError) {
-                resultVisibilityObservable.set(false)
+                feedResponse.value = null
             } else {
                 getHomeFeed.execute().collect {
                     when (it) {
                         is BaseResult.Loading -> showLoading(it.showing)
                         is BaseResult.Success -> if (it.succeeded) {
-                            resultVisibilityObservable.set(true)
-                            parseFeedResponse(it.data)
+                            feedResponse.value = it.data
                         } else {
-                            resultVisibilityObservable.set(false)
+                            feedResponse.value = null
                         }
-                        is BaseResult.Error -> resultVisibilityObservable.set(false)
+                        is BaseResult.Error -> feedResponse.value = null
                     }
                 }
             }
@@ -87,19 +92,18 @@ class HomeViewModel @Inject constructor(
     }
 
     fun findAndOpenServiceDetail(item: AllServiceItem) {
-        feedResponseLiveData.value?.allServices?.find { it.id == item.id }?.let {
-
+        feedResponse.value?.allServices?.find { it.id == item.id }?.let {
+            openDetail.value = it
         }
     }
 
     fun findAndOpenServiceDetail(item: PopularItem) {
-        feedResponseLiveData.value?.popularServices?.find { it.id == item.id }?.let {
-
+        feedResponse.value?.popularServices?.find { it.id == item.id }?.let {
+            openDetail.value = it
         }
     }
 
     private fun parseFeedResponse(feed: FeedModel) {
-        feedResponse.value = feed
         allServices.value = feed.allServices.mapToAllServiceItems()
         popularItems.value = feed.popularServices.mapToPopularItems()
         postItems.value = feed.posts.mapToPostItems()
