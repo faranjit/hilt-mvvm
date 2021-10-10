@@ -11,6 +11,8 @@ import com.faranjit.hilt.mvvm.features.home.presentation.adapter.all.AllServiceI
 import com.faranjit.hilt.mvvm.features.home.presentation.adapter.all.mapToAllServiceItems
 import com.faranjit.hilt.mvvm.features.home.presentation.adapter.popular.PopularItem
 import com.faranjit.hilt.mvvm.features.home.presentation.adapter.popular.mapToPopularItems
+import com.faranjit.hilt.mvvm.features.home.presentation.adapter.post.PostItem
+import com.faranjit.hilt.mvvm.features.home.presentation.adapter.post.mapToPostItems
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -32,6 +34,10 @@ class HomeViewModel @Inject constructor(
     val popularItemsLiveData: LiveData<List<PopularItem>>
         get() = popularItems
 
+    private val postItems = MutableLiveData<List<PostItem>>()
+    val postItemsLiveData: LiveData<List<PostItem>>
+        get() = postItems
+
     init {
         viewModelScope.launch {
             getHomeFeed.execute().collect {
@@ -47,5 +53,6 @@ class HomeViewModel @Inject constructor(
     private fun parseFeedResponse(feed: FeedResponse) {
         allServices.value = feed.allServices.mapToAllServiceItems()
         popularItems.value = feed.popularServices.mapToPopularItems()
+        postItems.value = feed.posts.mapToPostItems()
     }
 }

@@ -21,7 +21,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtAllServices"
-                style="@style/BoldNormalTextStyle"
+                style="@style/BoldBigTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_small"
@@ -70,6 +70,32 @@
                 app:layout_constraintTop_toBottomOf="@id/txtPopular"
                 tools:itemCount="10"
                 tools:listitem="@layout/item_list_popular" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtPosts"
+                style="@style/BoldBigTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_xlarge"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:text="@string/latests_from_the_blog"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recyclerPopular" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerPost"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_xxsmall"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtPosts"
+                app:spanCount="2"
+                tools:itemCount="10"
+                tools:listitem="@layout/item_list_posts" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
