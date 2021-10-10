@@ -18,6 +18,8 @@ class BaseRecyclerItemCallback<T : BaseListItem<T>> :
 }
 
 interface BaseListItem<T> {
+    val id: Int
+
     fun areItemsTheSame(newItem: T): Boolean
 
     fun areContentsTheSame(newItem: T): Boolean

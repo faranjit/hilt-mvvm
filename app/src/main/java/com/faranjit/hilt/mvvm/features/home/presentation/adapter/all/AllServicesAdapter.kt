@@ -10,7 +10,9 @@ import com.faranjit.hilt.mvvm.databinding.ItemListAllServicesBinding
 /**
  * Created by Bulent Turkmen on 9.10.2021.
  */
-class AllServicesAdapter :
+class AllServicesAdapter(
+    private val serviceItemClickListener: ServiceItemClickListener
+) :
     BaseAdapter<AllServiceItem, ItemListAllServicesBinding, AllServicesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllServicesViewHolder {
@@ -21,6 +23,6 @@ class AllServicesAdapter :
             false
         )
 
-        return AllServicesViewHolder(binding)
+        return AllServicesViewHolder(binding, serviceItemClickListener)
     }
 }

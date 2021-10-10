@@ -7,10 +7,14 @@ import com.faranjit.hilt.mvvm.databinding.ItemListPopularBinding
  * Created by Bulent Turkmen on 9.10.2021.
  */
 class PopularViewHolder(
-    binding: ItemListPopularBinding
+    binding: ItemListPopularBinding,
+    private val popularItemClickListener: PopularItemClickListener
 ) : BaseViewHolder<PopularItem, ItemListPopularBinding>(binding) {
 
     override fun bind(item: PopularItem) {
         binding.item = item
+        binding.root.setOnClickListener {
+            popularItemClickListener.onPopularItemClick(item)
+        }
     }
 }

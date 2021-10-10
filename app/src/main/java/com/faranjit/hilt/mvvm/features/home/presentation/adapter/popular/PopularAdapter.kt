@@ -10,7 +10,9 @@ import com.faranjit.hilt.mvvm.databinding.ItemListPopularBinding
 /**
  * Created by Bulent Turkmen on 9.10.2021.
  */
-class PopularAdapter : BaseAdapter<PopularItem, ItemListPopularBinding, PopularViewHolder>() {
+class PopularAdapter(
+    private val popularItemClickListener: PopularItemClickListener
+) : BaseAdapter<PopularItem, ItemListPopularBinding, PopularViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularViewHolder {
         val binding = DataBindingUtil.inflate<ItemListPopularBinding>(
@@ -20,6 +22,6 @@ class PopularAdapter : BaseAdapter<PopularItem, ItemListPopularBinding, PopularV
             false
         )
 
-        return PopularViewHolder(binding)
+        return PopularViewHolder(binding, popularItemClickListener)
     }
 }
