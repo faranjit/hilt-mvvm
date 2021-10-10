@@ -11,14 +11,10 @@ import com.faranjit.hilt.mvvm.features.home.presentation.adapter.post.PostAdapte
 import com.faranjit.hilt.mvvm.features.home.presentation.adapter.post.PostClickListener
 import com.faranjit.hilt.mvvm.features.home.presentation.adapter.post.PostItem
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeActivity :
     BaseActivity<HomeViewModel, ActivityHomeBinding>(), PostClickListener {
-
-    @Inject
-    lateinit var viewModelFactory: HomeViewModelFactory
 
     private val binding by viewBinding(ActivityHomeBinding::inflate)
 
@@ -44,7 +40,7 @@ class HomeActivity :
         observe()
     }
 
-    override fun provideViewModel() = viewModels<HomeViewModel> { viewModelFactory }.value
+    override fun provideViewModel() = viewModels<HomeViewModel>().value
 
     override fun bindViewModel() {
         binding.viewModel = viewModel
