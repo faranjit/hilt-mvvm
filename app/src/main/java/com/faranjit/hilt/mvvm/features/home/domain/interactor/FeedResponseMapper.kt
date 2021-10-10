@@ -7,7 +7,7 @@ import com.faranjit.hilt.mvvm.features.home.domain.model.FeedModel
 /**
  * Created by Bulent Turkmen on 10.10.2021.
  */
-object FeedResponseMapper : BaseMapper<FeedResponse, FeedModel>() {
+object FeedResponseMapper : BaseMapper<FeedResponse, FeedModel> {
 
     override fun map(from: FeedResponse) = from.toModel()
 }
