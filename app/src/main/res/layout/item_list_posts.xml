@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.faranjit.hilt.mvvm.features.home.presentation.adapter.post.PostItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_xxsmall"
+        android:background="@drawable/background_rounded_whitish">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgPost"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            app:layout_constraintDimensionRatio="2:3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:url="@{item.imageUrl}"
+            tools:src="@drawable/post" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/dark_transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtCategory"
+            style="@style/BoldNormalTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_xxsmall"
+            android:maxLines="2"
+            android:padding="@dimen/margin_small"
+            android:text="@{item.category}"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/txtTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Cleaning" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtTitle"
+            style="@style/BoldSmallTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:padding="@dimen/margin_small"
+            android:text="@{item.title}"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/imgPost"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Cleaning title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

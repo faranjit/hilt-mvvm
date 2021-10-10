@@ -2,9 +2,9 @@ package com.faranjit.hilt.mvvm.features.home.data
 
 import com.faranjit.hilt.mvvm.BaseUnitTest
 import com.faranjit.hilt.mvvm.base.BaseResult
-import com.faranjit.hilt.mvvm.features.home.data.response.FeedResponse
-import com.faranjit.hilt.mvvm.features.home.data.response.Service
 import com.faranjit.hilt.mvvm.features.home.data.source.HomeRemoteDataSource
+import com.faranjit.hilt.mvvm.features.home.domain.model.FeedModel
+import com.faranjit.hilt.mvvm.features.home.domain.model.ServiceModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
@@ -35,13 +35,13 @@ class HomeDataRepositoryTest : BaseUnitTest() {
     fun shouldGetHomeFeedReturnsSuccess() = runBlockingTest {
         // Given
         val response = BaseResult.Success(
-            FeedResponse(
+            FeedModel(
                 allServices = emptyList(),
                 posts = emptyList(),
                 popularServices = listOf(
-                    Service(1, 1, "Service 1"),
-                    Service(2, 2, "Service 1"),
-                    Service(3, 3, "Service 1")
+                    ServiceModel(1, 1, "Service 1"),
+                    ServiceModel(2, 2, "Service 1"),
+                    ServiceModel(3, 3, "Service 1")
                 )
             )
         )

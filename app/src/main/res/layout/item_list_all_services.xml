@@ -28,16 +28,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@android:drawable/ic_dialog_map" />
+            tools:src="@drawable/ic_tadilat" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtAllItemName"
             style="@style/BoldSmallTextStyle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_xxsmall"
-            android:maxLines="2"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
             android:text="@{item.name}"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imgAllItem"
             tools:text="Cleaning" />

@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -52,6 +53,7 @@ object NetworkModule {
         encodeDefaults = true
     }
 
+    @ExperimentalSerializationApi
     @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient, json: Json): Retrofit {

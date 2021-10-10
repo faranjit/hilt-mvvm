@@ -1,5 +1,8 @@
 package com.faranjit.hilt.mvvm.features.home.data.response
 
+import com.faranjit.hilt.mvvm.features.home.domain.model.FeedModel
+import com.faranjit.hilt.mvvm.features.home.domain.model.PostModel
+import com.faranjit.hilt.mvvm.features.home.domain.model.ServiceModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -14,7 +17,14 @@ data class FeedResponse(
     val popularServices: List<Service>,
     @SerialName("posts")
     val posts: List<Post>
-)
+) {
+
+    fun toModel() = FeedModel(
+        allServices.map { it.toModel() },
+        popularServices.map { it.toModel() },
+        posts.map { it.toModel() }
+    )
+}
 
 @Serializable
 data class Service(
@@ -29,12 +39,13 @@ data class Service(
     @SerialName("image_url")
     val imageUrl: String? = null,
     @SerialName("pro_count")
-    val proCount: Int? = 0,
-    @SerialName("average_rating")
-    val averageRating: Float? = 0f,
-    @SerialName("completed_jobs_on_last_month")
-    val jobCountOnLastMonth: Int? = 0
-)
+    val proCount: Int? = 0
+) {
+
+    fun toModel() = ServiceModel(
+        id, serviceId, name, longName, imageUrl, proCount
+    )
+}
 
 @Serializable
 data class Post(
@@ -46,4 +57,9 @@ data class Post(
     val imageUrl: String? = null,
     @SerialName("link")
     val link: String? = null,
-)
+) {
+
+    fun toModel() = PostModel(
+        title, category, imageUrl, link
+    )
+}

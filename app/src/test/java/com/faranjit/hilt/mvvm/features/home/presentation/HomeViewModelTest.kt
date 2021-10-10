@@ -6,8 +6,7 @@ import com.faranjit.hilt.mvvm.features.home.domain.interactor.GetHomeFeed
 import com.faranjit.hilt.mvvm.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
+import org.junit.Assert.*
 import org.junit.Test
 
 /**
@@ -20,18 +19,46 @@ class HomeViewModelTest : BaseUnitTest() {
 
     private lateinit var viewModel: HomeViewModel
 
+    override fun setup() {
+        viewModel = HomeViewModel(getHomeFeed)
+    }
+
     @Test
     fun shouldGetHomeFeedReturnsSuccess() {
         testScope.launch {
             // Given
 
             // When
-            viewModel = HomeViewModel(getHomeFeed)
             val popularItems = viewModel.popularItemsLiveData.getOrAwaitValue()
+            val allItems = viewModel.allServicesLiveData.getOrAwaitValue()
+            val posts = viewModel.postItemsLiveData.getOrAwaitValue()
 
             // Then
             assertNotNull(popularItems)
-            assertEquals(3, popularItems.size)
+            assertNotNull(allItems)
+            assertNotNull(posts)
         }
+    }
+
+    @Test
+    fun shouldDisplayEmptyMessage() {
+        // Given
+
+        // When
+        viewModel.getHomeFeedFlow(true)
+
+        // Then
+        assertFalse(viewModel.resultVisibilityObservable.getOrAwaitValue())
+    }
+
+    @Test
+    fun shouldDisplayResults() {
+        // Given
+
+        // When
+        viewModel.getHomeFeedFlow(false)
+
+        // Then
+        assertTrue(viewModel.resultVisibilityObservable.getOrAwaitValue())
     }
 }

@@ -2,4 +2,12 @@
     <string name="app_name">HiltMvvm</string>
     <string name="popular_these_days">Popular These Days</string>
     <string name="all_services">All services</string>
+    <string name="latests_from_the_blog">Latests from the blog</string>
+    <string name="home_title">Hizmet Piş\nağzıma düş</string>
+    <string name="empty_result_message">There is no result here!\nYou can try again by clicking here.</string>
+    <string name="how_it_works">How it works</string>
+    <string name="how_works_1">Answer the questions</string>
+    <string name="how_works_2">Get Quotes</string>
+    <string name="how_works_3">Compare the prices and decide</string>
+    <string name="continue_">Continue</string>
 </resources>

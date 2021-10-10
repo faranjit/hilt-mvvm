@@ -5,6 +5,7 @@ plugins {
     id "kotlin-parcelize"
     id "kotlinx-serialization"
     id "dagger.hilt.android.plugin"
+    id("io.gitlab.arturbosch.detekt").version("1.16.0")
 }
 
 android {
@@ -38,6 +39,12 @@ android {
         viewBinding true
         dataBinding true
     }
+}
+
+task checkCode {
+    dependsOn 'lint'
+    dependsOn 'detekt'
+    dependsOn 'test'
 }
 
 dependencies {
