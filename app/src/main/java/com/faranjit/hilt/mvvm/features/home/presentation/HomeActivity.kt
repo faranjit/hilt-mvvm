@@ -7,11 +7,15 @@ import com.faranjit.hilt.mvvm.base.viewBinding
 import com.faranjit.hilt.mvvm.databinding.ActivityHomeBinding
 import com.faranjit.hilt.mvvm.features.home.presentation.adapter.all.AllServicesAdapter
 import com.faranjit.hilt.mvvm.features.home.presentation.adapter.popular.PopularAdapter
+import com.faranjit.hilt.mvvm.features.home.presentation.adapter.post.PostAdapter
+import com.faranjit.hilt.mvvm.features.home.presentation.adapter.post.PostClickListener
+import com.faranjit.hilt.mvvm.features.home.presentation.adapter.post.PostItem
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
+class HomeActivity :
+    BaseActivity<HomeViewModel, ActivityHomeBinding>(), PostClickListener {
 
     @Inject
     lateinit var viewModelFactory: HomeViewModelFactory
@@ -20,6 +24,7 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
 
     private val popularAdapter = PopularAdapter()
     private val allServicesAdapter = AllServicesAdapter()
+    private val postsAdapter = PostAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +32,7 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
         binding.run {
             recyclerAllServices.adapter = allServicesAdapter
             recyclerPopular.adapter = popularAdapter
+            recyclerPost.adapter = postsAdapter
         }
 
         observe()
@@ -38,6 +44,10 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
         binding.viewModel = viewModel
     }
 
+    override fun onPostClick(item: PostItem) {
+        TODO("Not yet implemented")
+    }
+
     private fun observe() {
         viewModel.allServicesLiveData.observe(this) {
             allServicesAdapter.submitList(it)
@@ -45,6 +55,10 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>() {
 
         viewModel.popularItemsLiveData.observe(this) {
             popularAdapter.submitList(it)
+        }
+
+        viewModel.postItemsLiveData.observe(this) {
+            postsAdapter.submitList(it)
         }
     }
 }
