@@ -7,6 +7,7 @@ import com.faranjit.hilt.mvvm.features.home.data.response.Post
  * Created by Bulent Turkmen on 10.10.2021.
  */
 data class PostItem(
+    override val id: Int,
     val title: String,
     val category: String?,
     val imageUrl: String?,
@@ -19,5 +20,5 @@ data class PostItem(
 }
 
 fun List<Post>.mapToPostItems() = this.map {
-    PostItem(it.title, it.category, it.imageUrl, it.link)
+    PostItem(0, it.title, it.category, it.imageUrl, it.link)
 }

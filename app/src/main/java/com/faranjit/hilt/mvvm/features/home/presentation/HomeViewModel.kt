@@ -1,9 +1,7 @@
 package com.faranjit.hilt.mvvm.features.home.presentation
 
 import androidx.databinding.ObservableBoolean
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.faranjit.hilt.mvvm.base.BaseResult
 import com.faranjit.hilt.mvvm.base.BaseViewModel
 import com.faranjit.hilt.mvvm.base.succeeded
@@ -20,6 +18,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.random.Random
+import kotlin.random.nextInt
 
 /**
  * Created by Bulent Turkmen on 9.10.2021.
@@ -28,6 +27,11 @@ import kotlin.random.Random
 class HomeViewModel @Inject constructor(
     private val getHomeFeed: GetHomeFeed
 ) : BaseViewModel() {
+
+    companion object {
+        private const val RANDOM_SEED = 20
+        private const val RANDOM_THRESHOLD = 7
+    }
 
     private val allServices = MutableLiveData<List<AllServiceItem>>()
     val allServicesLiveData: LiveData<List<AllServiceItem>>
@@ -41,10 +45,18 @@ class HomeViewModel @Inject constructor(
     val postItemsLiveData: LiveData<List<PostItem>>
         get() = postItems
 
+    private val feedResponse = MutableLiveData<FeedResponse>()
+    private val feedResponseLiveData: LiveData<FeedResponse> = feedResponse.switchMap {
+        liveData(viewModelScope.coroutineContext) {
+            parseFeedResponse(it)
+            emit(it)
+        }
+    }
+
     val resultVisibilityObservable = ObservableBoolean(true)
 
     init {
-        getHomeFeedFlow(Random(10).nextInt() < 5)
+        getHomeFeedFlow(Random.nextInt(0..RANDOM_SEED) < RANDOM_THRESHOLD)
     }
 
     /**
@@ -74,7 +86,20 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun findAndOpenServiceDetail(item: AllServiceItem) {
+        feedResponseLiveData.value?.allServices?.find { it.id == item.id }?.let {
+
+        }
+    }
+
+    fun findAndOpenServiceDetail(item: PopularItem) {
+        feedResponseLiveData.value?.popularServices?.find { it.id == item.id }?.let {
+
+        }
+    }
+
     private fun parseFeedResponse(feed: FeedResponse) {
+        resultVisibilityObservable.set(true)
         allServices.value = feed.allServices.mapToAllServiceItems()
         popularItems.value = feed.popularServices.mapToPopularItems()
         postItems.value = feed.posts.mapToPostItems()

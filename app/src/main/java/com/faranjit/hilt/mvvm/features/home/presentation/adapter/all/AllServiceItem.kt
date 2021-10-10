@@ -9,15 +9,16 @@ import com.faranjit.hilt.mvvm.features.home.domain.interactor.ServiceItemIconMap
  * Created by Bulent Turkmen on 9.10.2021.
  */
 data class AllServiceItem(
+    override val id: Int,
     val name: String,
     @DrawableRes val resId: Int
 ) : BaseListItem<AllServiceItem> {
 
-    override fun areItemsTheSame(newItem: AllServiceItem) = name == newItem.name
+    override fun areItemsTheSame(newItem: AllServiceItem) = id == newItem.id
 
     override fun areContentsTheSame(newItem: AllServiceItem) = this == newItem
 }
 
 fun List<Service>.mapToAllServiceItems() = this.map {
-    AllServiceItem(it.name, ServiceItemIconMapper.getServiceIcon(it.id))
+    AllServiceItem(it.id, it.name, ServiceItemIconMapper.getServiceIcon(it.id))
 }
